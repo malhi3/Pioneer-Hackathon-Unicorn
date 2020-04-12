@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      body {
+        background-image: url({{ url_for('static', filename="food-background.jpg") }});
+        background-size: cover;
+        background-attachment: fixed;
+      }
+
+      #container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #heading {
+        text-align: center;
+        font-size: 45px;
+        width: 30%;
+        font-family: Baskerville;
+      }
+
+      #recipe-list{
+        list-style-type: none;
+        text-align: center;
+        padding: 0;
+      }
+
+      .recipe-li{
+        border: solid 2px;
+        font-size: 25px;
+        width: 800px;
+        padding: 10px 0px;
+        background-color: white;
+        margin-top: 15px;
+      }
+
+      a{
+        text-decoration: none;
+        color: #ff2bf4;
+        transition: 0.2s;
+      }
+
+      a:hover{
+        color: #2baeff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <p id="heading">Recipes with only your ingredients.</p>
+      <div id="recipe-list-div">
+        <ul id="recipe-list">
+          {% for recipe in recipes %}
+            <a href="{{ recipe[1] }}" target="_blank"><li class="recipe-li">{{ recipe[0] }}</li></a>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
