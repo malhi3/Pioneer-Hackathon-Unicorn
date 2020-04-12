@@ -12,7 +12,7 @@ During this COVID-19 lockdown in many cities, we are all confined to our homes -
 
 #### Database
 
-The database has been scraped from a recipe website [AllWebsites](https://www.allwebsites.com). It features the first 1000 recipes from the website's massive 71000 recipe catalogue. The reason we could not scrape more is due to processing limitations.
+The database has been scraped from a recipe website [AllRecipes](https://www.allrecipes.com). It features the first 1000 recipes from the website's massive 71000 recipe catalogue. The reason we could not scrape more is due to processing limitations.
 
 
 
