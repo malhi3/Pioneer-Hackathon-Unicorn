@@ -2,8 +2,7 @@ import pandas as pd
 from urllib.request import urlopen
 from urllib.error import HTTPError
 from bs4 import BeautifulSoup
-
-#db = pd.read_csv('recipe.csv')
+import csv
 
 def getBSobject(url):
     try:
@@ -19,36 +18,36 @@ def getBSobject(url):
 
 url1 = "https://www.allrecipes.com/search/results/?wt=&sort=re&page="
 
-for i in range(1,2):
-    url = url1 + str(i)
-    soup = getBSobject(url)
+with open('recipe.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
 
-    #Need to extract text
-    tempTitles = soup.find_all("span", class_="fixed-recipe-card__title-link")
-
-    #Need to extract URL
-    tempLinks = soup.find_all("h3" ,class_="fixed-recipe-card__h3")
-
-    ingredientList = []
-
-
-    for i in range(0,len(tempLinks)):
-
-        title = tempTitles[i].get_text()
-        url = tempLinks[i].find('a').get('href')
-        print(title)
-        print(url)
-
+    for i in range(1,2):
+        url = url1 + str(i)
         soup = getBSobject(url)
-        ingredients = soup.find_all("span", class_="recipe-ingred_txt added")
 
-        temp = ""
+        #Need to extract text
+        tempTitles = soup.find_all("span", class_="fixed-recipe-card__title-link")
 
-        for i in range(len(ingredients)):
-            concatenate = ingredients[i].get_text().replace(",", ";")
-            temp = temp + ", " + (concatenate)
+        #Need to extract URL
+        tempLinks = soup.find_all("h3" ,class_="fixed-recipe-card__h3")
 
-        temp = temp[2:]
-        print(temp)
-        ingredientList.append(temp)
-        print("-----------------------")
+        for i in range(0,len(tempLinks)):
+
+            title = tempTitles[i].get_text()
+            url = tempLinks[i].find('a').get('href')
+            print(title)
+            print(url)
+
+            soup = getBSobject(url)
+            ingredients = soup.find_all("span", class_="recipe-ingred_txt added")
+
+            temp = ""
+
+            for i in range(len(ingredients)):
+                concatenate = ingredients[i].get_text().replace(",", ";")
+                temp = temp + ", " + (concatenate)
+
+            temp = temp[2:]
+
+            writer.writerow([title, url, temp])
+            
